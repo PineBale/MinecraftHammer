@@ -1,48 +1,46 @@
 package nl.rutgerkok.hammer.anvil;
 
-import static org.junit.Assert.assertEquals;
+import nl.rutgerkok.hammer.Chunk;
+import nl.rutgerkok.hammer.ChunkAccess;
+import nl.rutgerkok.hammer.GlobalTempResourceManager;
+import nl.rutgerkok.hammer.material.GlobalMaterialMap;
+import nl.rutgerkok.hammer.material.MaterialData;
+import nl.rutgerkok.hammer.util.MaterialNotFoundException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import nl.rutgerkok.hammer.Chunk;
-import nl.rutgerkok.hammer.ChunkAccess;
-import nl.rutgerkok.hammer.material.GlobalMaterialMap;
-import nl.rutgerkok.hammer.material.MaterialData;
-import nl.rutgerkok.hammer.util.MaterialNotFoundException;
-import nl.rutgerkok.hammer.util.TestFile;
-
 /**
  * Tests getting a block at negative y.
  */
-public class Chunk117RandomAccessTest {
+class Chunk117RandomAccessTest {
 
-    private AnvilWorld world;
+    private static AnvilWorld world;
     private int[] xyz = new int[] { 179, -49, -227 };
 
-    @Before
-    public void loadWorld() throws IOException {
-        Path levelDat = TestFile.get("anvil_1_17_extended_height/level.dat");
+    @BeforeAll
+    static void loadWorld() throws IOException {
+        Path levelDat = GlobalTempResourceManager.getGlobalTempDir().resolve("anvil_1_17_extended_height/level.dat");
         world = new AnvilWorld(new GlobalMaterialMap(), levelDat);
     }
 
     @Test
-    public void testChunkHeight() throws IOException, MaterialNotFoundException {
+    void testChunkHeight() throws IOException, MaterialNotFoundException {
         try (ChunkAccess<?> chunkAccess = world.getChunkAccess()) {
             Chunk chunk = chunkAccess.getChunk(Math.floorDiv(xyz[0], AnvilChunk.CHUNK_X_SIZE), Math
                     .floorDiv(xyz[2], AnvilChunk.CHUNK_Z_SIZE));
 
-            assertEquals(-64, chunk.getDepth());
-            assertEquals(80, chunk.getHeight());
+            Assertions.assertEquals(-64, chunk.getDepth());
+            Assertions.assertEquals(80, chunk.getHeight());
         }
 
     }
 
     @Test
-    public void testRetrieveChunk() throws IOException, MaterialNotFoundException {
+    void testRetrieveChunk() throws IOException, MaterialNotFoundException {
         try (ChunkAccess<?> chunkAccess = world.getChunkAccess()) {
             Chunk chunk = chunkAccess.getChunk(Math.floorDiv(xyz[0], AnvilChunk.CHUNK_X_SIZE), Math
                     .floorDiv(xyz[2], AnvilChunk.CHUNK_Z_SIZE));
@@ -51,7 +49,7 @@ public class Chunk117RandomAccessTest {
             MaterialData materialData = chunk
                     .getMaterial(Math.floorMod(xyz[0], AnvilChunk.CHUNK_X_SIZE), xyz[1], Math
                             .floorMod(xyz[2], AnvilChunk.CHUNK_Z_SIZE));
-            assertEquals("minecraft:tuff", materialData.getName());
+            Assertions.assertEquals("minecraft:tuff", materialData.getName());
         }
 
     }

@@ -1,33 +1,31 @@
 package nl.rutgerkok.hammer.anvil;
 
-import static org.junit.Assert.assertEquals;
+import nl.rutgerkok.hammer.CountingChunkVisitor;
+import nl.rutgerkok.hammer.GlobalTempResourceManager;
+import nl.rutgerkok.hammer.material.GlobalMaterialMap;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.junit.Before;
-import org.junit.Test;
+class Chunk117WalkTest {
 
-import nl.rutgerkok.hammer.CountingChunkVisitor;
-import nl.rutgerkok.hammer.material.GlobalMaterialMap;
-import nl.rutgerkok.hammer.util.TestFile;
+    private static AnvilWorld world;
 
-public class Chunk117WalkTest {
-
-    private AnvilWorld world;
-
-    @Before
-    public void loadWorld() throws IOException {
-        Path levelDat = TestFile.get("anvil_1_17_extended_height/level.dat");
+    @BeforeAll
+    static void loadWorld() throws IOException {
+        Path levelDat = GlobalTempResourceManager.getGlobalTempDir().resolve("anvil_1_17_extended_height/level.dat");
         world = new AnvilWorld(new GlobalMaterialMap(), levelDat);
     }
 
     @Test
-    public void testStatistics() throws IOException {
+    void testStatistics() throws IOException {
         CountingChunkVisitor chunkVisitor = new CountingChunkVisitor();
         world.walkChunks(chunkVisitor);
-        assertEquals(1706, chunkVisitor.chunksSeen.get());
-        assertEquals(304, chunkVisitor.entitiesSeen.get());
-        assertEquals(43, chunkVisitor.tileEntitiesSeen.get());
+        Assertions.assertEquals(1706, chunkVisitor.chunksSeen.get());
+        Assertions.assertEquals(304, chunkVisitor.entitiesSeen.get());
+        Assertions.assertEquals(43, chunkVisitor.tileEntitiesSeen.get());
     }
 }

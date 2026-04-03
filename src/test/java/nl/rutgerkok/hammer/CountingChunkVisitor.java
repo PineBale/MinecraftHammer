@@ -1,11 +1,11 @@
 package nl.rutgerkok.hammer;
 
-import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import nl.rutgerkok.hammer.util.Progress;
 import nl.rutgerkok.hammer.util.Result;
 import nl.rutgerkok.hammer.util.Visitor;
+
+import java.io.IOException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Counts all the chunks, entities and tile entities seen.

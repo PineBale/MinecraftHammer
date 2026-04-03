@@ -32,7 +32,7 @@ public final class ListTag<T> extends ArrayList<T> implements JSONAware {
      *             If values aren't of a valid {@link TagType tag type}.
      */
     @SafeVarargs
-    static <T> ListTag<T> of(T first, T... others) {
+    public static <T> ListTag<T> of(T first, T... others) {
         TagType<T> type = TagType.ofObject(first);
         ListTag<T> tag = new ListTag<T>(type);
         tag.add(first);

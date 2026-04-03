@@ -1,33 +1,33 @@
 package nl.rutgerkok.hammer.material;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
-
-public class MaterialSetTest {
+class MaterialSetTest {
 
     @Test
-    public void testAdd() {
+    void testAdd() {
         GlobalMaterialMap dictionary = new GlobalMaterialMap();
         MaterialData material = dictionary.addMaterial(MaterialName.ofBaseName("test:foo"));
 
         MaterialSet set = new MaterialSet();
-        assertFalse(set.contains(material));
+        Assertions.assertFalse(set.contains(material));
 
         // Now add it
         set.add(material);
-        assertTrue(set.contains(material));
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testAddNull() {
-        MaterialSet set = new MaterialSet();
-        set.add(null);
+        Assertions.assertTrue(set.contains(material));
     }
 
     @Test
-    public void testRemove() {
+    void testAddNull() {
+        Assertions.assertThrows(NullPointerException.class, () -> {
+            MaterialSet set = new MaterialSet();
+            set.add(null);
+        });
+    }
+
+    @Test
+    void testRemove() {
         GlobalMaterialMap dictionary = new GlobalMaterialMap();
         MaterialData material = dictionary.addMaterial(MaterialName.ofBaseName("test:foo"));
 
@@ -35,15 +35,15 @@ public class MaterialSetTest {
         set.add(material);
 
         // Remove it
-        assertTrue(set.remove(material));
-        assertFalse(set.contains(material));
+        Assertions.assertTrue(set.remove(material));
+        Assertions.assertFalse(set.contains(material));
     }
 
     @Test
-    public void testRemoveNonExistant() {
+    void testRemoveNonExistant() {
         MaterialSet set = new MaterialSet();
 
         // Remove it
-        assertFalse(set.remove(new Object()));
+        Assertions.assertFalse(set.remove(new Object()));
     }
 }
