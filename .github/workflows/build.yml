@@ -15,14 +15,16 @@ on:
       - "!README"
       - "!LICENSE"
       - "!COPYING"
-      - "pom.xml"
+      - "build.gradle.kts"
+      - "settings.gradle.kts"
+      - "gradle.properties"
   workflow_dispatch:
 
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
     permissions:
       checks: write
     steps:
@@ -32,16 +34,16 @@ jobs:
 
       - uses: actions/setup-java@v5
         with:
-          distribution: temurin
-          java-version: 8
-          cache: "maven"
+          distribution: corretto
+          java-version: 17
+          cache: "gradle"
 
-      - run: mvn -B -V -e -ntp -Dstyle.color=always clean verify
+      - run: ./gradlew build
 
       - uses: mikepenz/action-junit-report@v6.4.0
         if: ${{ success() || failure() }}
         with:
-          report_paths: './target/surefire-reports/TEST-*.xml'
+          report_paths: ./build/test-results/test/TEST-*.xml
           include_passed: true
           detailed_summary: true
           fail_on_failure: true
@@ -51,4 +53,7 @@ jobs:
 
       - uses: PineBale/jacoco-csv-summary@v1.0.1
         with:
-          csv-file: target/jacoco-report/jacoco.csv
+          csv-file: ./build/reports/jacoco/test/jacocoTestReport.csv
+          write-summary: true
+          write-check: true
+          check-name: Coverage

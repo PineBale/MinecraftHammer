@@ -2,11 +2,6 @@
 
 World editor library for Minecraft, written in Java. It is intended to be used by programs that need to interact with Minecraft Java level files, from version 1.2 to version 1.17. (Newer versions may still work, as long as the data format doesn't change too much.)
 
-## Compiling
-This project uses [Maven](https://maven.apache.org/). Download link and Git clone URLs are in the sidebar.
-
-To compile, run `mvn install`.
-
 ## Usage
 All public methods are documented using JavaDocs. To get started, create an instance of `AnvilWorld`. You can then use the various methods on those classes to inspect or modify the level.
 
