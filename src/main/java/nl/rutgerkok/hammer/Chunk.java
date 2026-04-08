@@ -65,13 +65,13 @@ public interface Chunk {
      * Gets the block at the given location.
      *
      * @param x
-     *            X position of the block, <code>0 <= x < {@link #getSizeX()}
+     *            X position of the block, <code>0 {@literal <=} x {@literal <} {@link #getSizeX()}
      *            </code>.
      * @param y
-     *            Y position of the block, <code>0 <= y < {@link #getHeight()}
+     *            Y position of the block, <code>0 {@literal <=} y {@literal <} {@link #getHeight()}
      *            </code>.
      * @param z
-     *            Z position of the block, <code>0 <= z < {@link #getSizeZ()}
+     *            Z position of the block, <code>0 {@literal <=} z {@literal <} {@link #getSizeZ()}
      *            </code>.
      * @return The block.
      * @throws MaterialNotFoundException
@@ -125,13 +125,13 @@ public interface Chunk {
      * Checks if the given block is out of bounds for this chunk.
      *
      * @param x
-     *            X position of the block, <code>0 <= x < {@link #getSizeX()}
+     *            X position of the block, <code>0 {@literal <=} x {@literal <} {@link #getSizeX()}
      *            </code> for the block to be in bounds.
      * @param y
-     *            Y position of the block, <code>0 <= y < {@link #getHeight()}
+     *            Y position of the block, <code>0 {@literal <=} y {@literal <} {@link #getHeight()}
      *            </code> for the block to be in bounds.
      * @param z
-     *            Z position of the block, <code>0 <= z < {@link #getSizeZ()}
+     *            Z position of the block, <code>0 {@literal <=} z {@literal <} {@link #getSizeZ()}
      *            </code> for the block to be in bounds.
      * @return True if the position is out of bounds, false otherwise.
      */
@@ -141,13 +141,13 @@ public interface Chunk {
      * Sets the block at the given position.
      *
      * @param x
-     *            X position of the block, <code>0 <= x < {@link #getSizeX()}
+     *            X position of the block, <code>0 {@literal <=} x {@literal <} {@link #getSizeX()}
      *            </code>.
      * @param y
-     *            Y position of the block, <code>0 <= y < {@link #getHeight()}
+     *            Y position of the block, <code>0 {@literal <=} y {@literal <} {@link #getHeight()}
      *            </code>.
      * @param z
-     *            Z position of the block, <code>0 <= z < {@link #getSizeZ()}
+     *            Z position of the block, <code>0 {@literal <=} z {@literal <} {@link #getSizeZ()}
      *            </code>.
      * @param materialData
      *            Material to set.
